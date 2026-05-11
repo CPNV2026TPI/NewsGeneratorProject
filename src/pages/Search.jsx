@@ -15,7 +15,6 @@ import {
     Form, Checkbox, CheckboxGroup, toaster, Message, ButtonToolbar, SelectPicker, Card, Loader,
     Tag, Text, HStack, TagGroup, Modal
 } from "rsuite";
-import AdminIcon from '@rsuite/icons/Admin';
 import {useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import {SchemaModel, StringType, ArrayType} from 'rsuite/Schema';
@@ -180,26 +179,7 @@ console.log(allNews);
         <CustomProvider theme="light">
             <CustomNavbar user={user} removeAuthCredentials={removeAuthCredentials}/>
             <Container className="app-header">
-                {user && (
-                    <Header width={'100%'} display={'flex'} justifyContent={'flex-end'}>
-                        <Whisper
-                            placement="bottomEnd"
-                            trigger="click"
-                            // speaker={RenderSpeaker(user)}
-                            speaker={(props, ref) => (
-                                <RenderSpeaker
-                                    {...props}
-                                    ref={ref}
-                                    user={user}
-                                    onLogout={handleLogout}
-                                />
-                            )}
-                        >
-                            <AdminIcon size="2rem"/>
-                        </Whisper>
-                    </Header>
-                )}
-                <Content width={'75vw'}>
+                <Content width={'75vw'} marginTop={50}>
                     <VStack width={'100%'} alignItems={'center'} gap={20}>
                         <VStack width={'100%'} marginBottom={50}>
                             <TextPressure
@@ -256,20 +236,27 @@ console.log(allNews);
                             >
                                 <Form.Stack width={'100%'}>
                                     <Form.Group controlId="keyword">
-                                        <Form.Label>Keywords</Form.Label>
+                                        <Form.Label fontWeight={'600'}>Keywords</Form.Label>
                                         <Form.Control checkAsync name="keyword" id="keyword"
                                                       placeholder="e.g., artificial intelligence, climate change, innovations"/>
+                                        <Form.HelpText>
+                                            Enter keywords separated by commas
+                                        </Form.HelpText>
                                     </Form.Group>
                                     <Form.Group controlId="undesiredTopic">
-                                        <Form.Label>Undesired Topics</Form.Label>
+                                        <Form.Label fontWeight={'600'}>Undesired Topics</Form.Label>
                                         <Form.Control disabled={true} checkAsync name="undesiredTopic"
                                                       id="undesiredTopic"
                                                       placeholder="e.g., celebrity gossip, sports scores"/>
+                                        <Form.HelpText>
+                                            Enter undesired topics separated by commas
+                                        </Form.HelpText>
                                     </Form.Group>
-                                    <Form.Stack direction={'row'} width={'100%'}>
+                                    <Form.Stack direction={'row'} width={'100%'} fontWeight={'600'}>
                                         <Field
                                             name="language"
                                             label="Language"
+                                            placeholder={"Select a language..."}
                                             accepter={SelectPicker}
                                             data={languageOptions}
                                             defaultValue={'en'}
@@ -280,6 +267,7 @@ console.log(allNews);
                                         <Field
                                             name="timeframe"
                                             label="Timeframe"
+                                            placeholder={"Select a timeframe..."}
                                             accepter={SelectPicker}
                                             data={timeframeOptions}
                                             error={formError.language}
@@ -287,23 +275,25 @@ console.log(allNews);
                                             block
                                         />
                                     </Form.Stack>
-                                    <Field
-                                        name="category"
-                                        label="Category"
-                                        accepter={CheckboxGroup}
-                                        error={formError.category}
-                                        inline
-                                    >
-                                        <Checkbox value={'world'} color={'orange'}>World</Checkbox>
-                                        <Checkbox value={'press'} color={'orange'}>Press</Checkbox>
-                                        <Checkbox value={'sport'} color={'orange'}>Sport</Checkbox>
-                                    </Field>
+                                    <Form.Stack fontWeight={'600'}>
+                                        <Field
+                                            name="category"
+                                            label="Category"
+                                            accepter={CheckboxGroup}
+                                            error={formError.category}
+                                            inline
+                                        >
+                                            <Checkbox value={'world'} color={'orange'}>World</Checkbox>
+                                            <Checkbox value={'press'} color={'orange'}>Press</Checkbox>
+                                            <Checkbox value={'sport'} color={'orange'}>Sport</Checkbox>
+                                        </Field>
+                                    </Form.Stack>
                                 </Form.Stack>
                                 <ButtonToolbar mt={20}>
                                     <Button appearance="primary" name='fetchNews' color={'orange'}
                                             onClick={handleSubmit}
                                             loading={isLoading}>
-                                        Fetch NewsApi
+                                        Search
                                     </Button>
                                 </ButtonToolbar>
                             </Form>
