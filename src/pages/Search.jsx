@@ -141,6 +141,13 @@ console.log(allNews);
 
             // close modal
             handleClose()
+
+            // success message
+            if (!formValue.id) {
+                toaster.push(<Message type="success">{formValue.title} created successfully !</Message>);
+            } else {
+                toaster.push(<Message type="success">{formValue.title} modified successfully !</Message>);
+            }
         } catch (e) {
             console.error("Failed to fetch searches", e);
         }
