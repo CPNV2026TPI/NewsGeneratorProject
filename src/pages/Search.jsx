@@ -178,6 +178,7 @@ console.log(allNews);
 
     return (
         <CustomProvider theme="light">
+            <CustomNavbar user={user} removeAuthCredentials={removeAuthCredentials}/>
             <Container className="app-header">
                 {user && (
                     <Header width={'100%'} display={'flex'} justifyContent={'flex-end'}>
@@ -314,30 +315,3 @@ console.log(allNews);
         </CustomProvider>
     )
 }
-
-const RenderSpeaker = forwardRef(({onClose, left, top, className, user, onLogout}, ref) => {
-    const handleLogoutClick = () => {
-        onLogout();
-        onClose();
-    };
-
-    return (
-        <Popover ref={ref} className={className} style={{left, top}} full>
-            <Dropdown.Menu onSelect={onClose}>
-                <Dropdown.Item panel style={{padding: 10, width: 160}}>
-                    <Stack spacing={6} wrap>
-                        <Text>Signed in as</Text>
-                        <Text as="b">{user.username}</Text>
-                    </Stack>
-                    {/*<Text>Signed in as {user.username}</Text>*/}
-                    <Text muted>{user.role === 1 ? "Administrateur" : "Utilisateur"}</Text>
-                </Dropdown.Item>
-                <Dropdown.Item divider/>
-                <Dropdown.Item>Profile & account</Dropdown.Item>
-                <Dropdown.Item divider/>
-                <Dropdown.Item>Settings</Dropdown.Item>
-                <Dropdown.Item onClick={handleLogoutClick}>Sign out</Dropdown.Item>
-            </Dropdown.Menu>
-        </Popover>
-    );
-});
