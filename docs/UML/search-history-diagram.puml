@@ -7,23 +7,34 @@ participant "UI" as UI
 participant "Backend" as BE
 database "Base de données" as DB
 
-== Création de recherche personnalisée ==
+== Création/modification de recherche personnalisée ==
 User -> UI : Saisie des filtres
+User -> UI : Clique sur "Save search"
 User -> UI : Ajout d'un titre pour la recherche personnalisée
-User -> UI : Appuie sur le bouton "Fetch News"
+User -> UI : Appuie sur le bouton "Save"
 
-UI -> BE : saveCustomSearch(custom_search)
-BE -> DB : saveCustomSearch(selectedArticles)
+UI -> BE : /POST customsearch(custom_search)
+BE -> DB : postUserCustomSearch(custom_search)
 DB --> BE : confirmation_sauvegarde
+BE --> UI : confirmation_sauvegarde
+UI --> User : confirmation_sauvegarde (Alerte)
 
 == Récupération de recherche personnalisée ==
-User -> UI : Login par l'utilisateur
-UI -> BE : GET /customsearch(user_id)
+User -> UI : Visite de la page /search en tant que membre
+UI -> BE : GET /customsearch?userId=id
 BE -> DB : getUserCustomSearch(user_id)
-DB --> BE : custom_search_result
-BE --> UI : custom_search_result
-User -> UI : Sélectionne sa recherche personnalisée
-
+DB --> BE : resultat_recherche
+BE --> UI : Mise à jour du liste déroulante
+User -> UI : Sélectionne une recherche personnalisée
 UI --> UI : Mise à jour des filtres
+
+== Suppression de recherche personnalisée ==
+User -> UI : Clique sur le bouton supprimer sur le tag
+UI -> BE : DELETE /customsearch (search_id)
+BE -> DB : deleteUserCustomSearch(id, user_id)
+DB --> BE : confirmation_suppression
+BE --> UI : Mise à jour liste locale
+UI --> User : confirmation_suppression (Alerte)
+
 
 @enduml
