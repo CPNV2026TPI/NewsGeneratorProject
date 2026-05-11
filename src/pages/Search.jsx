@@ -156,6 +156,18 @@ console.log(allNews);
         })
     }
 
+    const removeTag = async (tag) => {
+        try {
+            const data = await CustomSearchApi.deleteUserCustomSearch({id: tag.value.id, userId: user.id}, token);
+
+            const nextTags = customSearchItems.filter(item => item !== tag);
+
+            setCustomSearchItems(nextTags);
+        } catch (e) {
+            console.error("Failed to remove search", e);
+        }
+    };
+
     const removeAuthCredentials = () => {
         localStorage.removeItem("JWT");
         setToken(null);
