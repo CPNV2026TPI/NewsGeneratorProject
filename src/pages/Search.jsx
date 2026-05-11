@@ -18,11 +18,12 @@ import {
 import {useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import {SchemaModel, StringType, ArrayType} from 'rsuite/Schema';
-import TextPressure from '../features/news-feed/components/text-pressure/TextPressure.jsx';
-import TextType from '../features/news-feed/components/text-type/TextType.jsx';
-import {FeedList} from "../features/news-feed/components/feed-list/FeedList.jsx";
-import {NewsApi} from "../features/news-feed/api/newsApi.js";
-import {CustomSearchApi} from "@/features/search-history/api/customSearchApi.js";
+import GradientText from "@/features/search/components/text-gradient/TextGradient.jsx";
+import TextType from '@/features/search/components/text-type/TextType.jsx';
+import {FeedList} from "@/features/search/components/feed-list/FeedList.jsx";
+import {CustomNavbar} from '../features/navbar/components/Navbar.jsx'
+import {SearchApi} from "@/features/search/api/searchApi.js";
+import {CustomSearchApi} from "@/features/custom-search/api/customSearchApi.js";
 
 // rsuite SelectPicker data
 const languageOptions = [
@@ -127,10 +128,21 @@ console.log(allNews);
         setIsLoading(false);
     };
 
-    const handleLogout = () => {
-        if (token) {
-            removeAuthCredentials()
-            // navigate('/login')
+    const handleSaveSearch = async () => {
+        try {
+            await CustomSearchApi.postUserCustomSearch({
+                id: formValue.id,
+                userId: user.id,
+                title: formValue.title,
+                language: formValue.language,
+                keyword: formValue.keyword,
+                category: formValue.category,
+            }, token);
+
+            // close modal
+            handleClose()
+        } catch (e) {
+            console.error("Failed to fetch searches", e);
         }
     }
 
@@ -295,7 +307,32 @@ console.log(allNews);
                                             loading={isLoading}>
                                         Search
                                     </Button>
+                                    <Button appearance="ghost" name='save' color={'orange'} onClick={handleOpen}> Save
+                                        search</Button>
+                                    <Button appearance="ghost" name='log' color={'orange'} onClick={handleLog}> Log</Button>
                                 </ButtonToolbar>
+
+                                <Modal open={saveSearchModal} onClose={handleClose}>
+                                    <Modal.Header>
+                                        <Modal.Title>Save your custom search</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Form fluid onChange={setFormValue} formValue={formValue}>
+                                            <Form.Group controlId="title">
+                                                <Form.ControlLabel fontWeight={'600'}>Search title</Form.ControlLabel>
+                                                <Form.Control name="title"/>
+                                            </Form.Group>
+                                        </Form>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={handleClose} appearance="subtle" color={'orange'}>
+                                            Cancel
+                                        </Button>
+                                        <Button onClick={handleSaveSearch} onToggle={handleSaveSearch} appearance="primary" color={'orange'}>
+                                            Save
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </Form>
                         </Card>
                         <FeedList newsList={newsList}/>
