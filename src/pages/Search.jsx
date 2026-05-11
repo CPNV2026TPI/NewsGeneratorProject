@@ -70,6 +70,7 @@ const model = SchemaModel({
 export const SearchPage = () => {
     const navigate = useNavigate();
     const [newsList, setNewsList] = useState([])
+    const [customSearchItems, setCustomSearchItems] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const hasSearched = useRef(false);
     const [token, setToken] = useState(localStorage.getItem("JWT"))
@@ -84,6 +85,10 @@ export const SearchPage = () => {
         category: [],
         language: ''
     });
+    // modal
+    const [saveSearchModal, setSaveSearchModal] = useState(false);
+    const handleOpen = () => setSaveSearchModal(true);
+    const handleClose = () => setSaveSearchModal(false);
 
     const handleSubmit = async () => {
         // check if registered
@@ -130,6 +135,16 @@ console.log(allNews);
         }
     }
 
+    const handleSelectPicker = (item) => {
+        setFormValue({
+            title:item.title,
+            id: item.id,
+            keyword: item.keyword,
+            category: item.category,
+            language: item.language
+        })
+    }
+
     const removeAuthCredentials = () => {
         localStorage.removeItem("JWT");
         setToken(null);
@@ -137,13 +152,29 @@ console.log(allNews);
     }
 
     useEffect(() => {
-        // Get user custom searches
-        const userCustomSearches = async () => {
-            setCustomSearch(await CustomSearchApi.getUserCustomSearch(user.id, token))
-        };
+        const getUserCustomSearches = async () => {
+            if (user) {
+                try {
+                    const data = await CustomSearchApi.getUserCustomSearch({id: user.id}, token);
+                    if (data.error && data.error.name.includes("PrismaClientValidationError")) {
+                        console.log("Error with Prisma database")
+                        return;
+                    }
 
-        userCustomSearches()
-    }, []);
+                    const selectPickerData = data.map(item => ({
+                        label: item.title,
+                        value: item
+                    }));
+
+                    setCustomSearchItems(selectPickerData);
+                } catch (e) {
+                    console.error("Failed to fetch searches", e);
+                }
+            }
+        }
+
+        getUserCustomSearches()
+    }, [user, token]);
 
     return (
         <CustomProvider theme="light">
@@ -196,11 +227,24 @@ console.log(allNews);
                                 cursorBlinkDuration={0.4}
                             />
                         </VStack>
-                        {/*<Text as='blockquote' margin={20}>It is a personalizable news generator.*/}
-                        {/*    It must be able to read the news, understand it, and summarize the news it has read, taking*/}
-                        {/*    into account user parameters such as keywords, desired/undesired topics, language and*/}
-                        {/*    timeframe of the search.</Text>*/}
                         <Card padding={20} width={'75vw'} shaded>
+                            <Text fontWeight={'600'} marginBottom={5}>Saved custom searches</Text>
+                            <SelectPicker
+                                marginBottom={10}
+                                width={'100%'}
+                                data={customSearchItems}
+                                placeholder={"Use a custom search..."}
+                                onSelect={(value) => {
+                                    handleSelectPicker(value)
+                                }}
+                            />
+                            <TagGroup marginBottom={15}>
+                                {customSearchItems.map((item, index) => (
+                                    <Tag key={index} color="orange" closable onClose={() => removeTag(item)}>
+                                        {item.label}
+                                    </Tag>
+                                ))}
+                            </TagGroup>
                             <Form fluid
                                   width={'100%'}
                                   ref={formRef}
