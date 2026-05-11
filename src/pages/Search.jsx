@@ -12,8 +12,8 @@ import {
     Content,
     CustomProvider,
     VStack,
-    Form, Checkbox, CheckboxGroup, toaster, Message, ButtonToolbar, SelectPicker, Card, Popover, Dropdown, Whisper,
-    Header, Text, Stack
+    Form, Checkbox, CheckboxGroup, toaster, Message, ButtonToolbar, SelectPicker, Card, Loader,
+    Tag, Text, HStack, TagGroup, Modal
 } from "rsuite";
 import AdminIcon from '@rsuite/icons/Admin';
 import {useNavigate} from "react-router-dom";
@@ -58,29 +58,31 @@ const model = SchemaModel({
         .isRequired('At least 1 keyword required.'),
     category: ArrayType()
         .minLength(1, 'Please select at least 1 category.')
-        .isRequired('This field is required.'),
+        .isRequired('At least 1 category required.'),
     language: StringType()
         .minLength(1, 'Please select a language.')
-        .isRequired('This field is required.'),
-    // timeframe: ArrayType()
-    //     .minLength(1, 'Please select a timeframe.')
-    //     .isRequired('This field is required.')
+        .isRequired('A language required.'),
+    timeframe: ArrayType()
+        .minLength(1, 'Please select a timeframe.')
+        .isRequired('A timeframe required.')
 });
 
-export const FetchPage = () => {
+export const SearchPage = () => {
     const navigate = useNavigate();
     const [newsList, setNewsList] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const hasSearched = useRef(false);
     const [token, setToken] = useState(localStorage.getItem("JWT"))
     const [user, setUser] = useState(token ? jwtDecode(token) : null)
-    const [customSearch, setCustomSearch] = useState(false);
+    // form
     const formRef = useRef();
     const [formError, setFormError] = useState({});
     const [formValue, setFormValue] = useState({
+        id: null,
+        title: '',
         keyword: '',
-        category: ['world'],
-        language: 'en'
+        category: [],
+        language: ''
     });
 
     const handleSubmit = async () => {
@@ -101,7 +103,7 @@ export const FetchPage = () => {
         hasSearched.current = true;
 
         // Get all links from category
-        const allNews = await NewsApi.getNews({
+        const allNews = await SearchApi.getNews({
             category: formValue.category,
             keywords: [formValue.keyword]
         }, token);
@@ -117,9 +119,7 @@ console.log(allNews);
             toaster.push(<Message type="error">An error has occurred.. Please try again.</Message>);
         }
 
-
         setNewsList(allNews.news);
-
         setIsLoading(false);
     };
 
