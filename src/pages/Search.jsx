@@ -129,6 +129,26 @@ console.log(allNews);
     };
 
     const handleSaveSearch = async () => {
+        if (!user.id) {
+            toaster.push(<Message type="error">You must be logged in...</Message>);
+            return;
+        }
+        if (!formValue.title) {
+            toaster.push(<Message type="error">You must enter a title...</Message>);
+            return;
+        }
+        if (!formValue.language) {
+            toaster.push(<Message type="error">You must select a language...</Message>);
+            return;
+        }
+        if (!formValue.keyword) {
+            toaster.push(<Message type="error">You must enter a keyword at least...</Message>);
+            return;
+        }
+        if (formValue.category.length < 1) {
+            toaster.push(<Message type="error">You must select at least 1 category...</Message>);
+            return;
+        }
         try {
             await CustomSearchApi.postUserCustomSearch({
                 id: formValue.id,
@@ -169,6 +189,8 @@ console.log(allNews);
 
             const nextTags = customSearchItems.filter(item => item !== tag);
 
+            toaster.push(<Message type="success">{tag.value.title} deleted successfully !</Message>);
+
             setCustomSearchItems(nextTags);
         } catch (e) {
             console.error("Failed to remove search", e);
@@ -185,7 +207,7 @@ console.log(allNews);
         const getUserCustomSearches = async () => {
             if (user) {
                 try {
-                    const data = await CustomSearchApi.getUserCustomSearch({id: user.id}, token);
+                    const data = await CustomSearchApi.getUserCustomSearch({userId: user.id}, token);
                     if (data.error && data.error.name.includes("PrismaClientValidationError")) {
                         console.log("Error with Prisma database")
                         return;
