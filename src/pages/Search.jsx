@@ -321,7 +321,6 @@ console.log(allNews);
                                     </Button>
                                     <Button appearance="ghost" name='save' color={'orange'} onClick={handleOpen}> Save
                                         search</Button>
-                                    <Button appearance="ghost" name='log' color={'orange'} onClick={handleLog}> Log</Button>
                                 </ButtonToolbar>
 
                                 <Modal open={saveSearchModal} onClose={handleClose}>
