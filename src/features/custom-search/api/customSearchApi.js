@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const CustomSearchApi = {
     getUserCustomSearch: async (query, token) => {
-        const response = await fetch(`${API_URL}/customsearch?id=${query.id}`, {
+        const response = await fetch(`${API_URL}/customsearch?userId=${query.userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
