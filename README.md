@@ -72,15 +72,29 @@ pnpm run build
 
 
 ```shell
-├───docs
-├───src
-│   ├───api
-│   ├───assets
-│   ├───components
-│   │   └───ui
-│   ├───styles
-│   └───views
-└───tests
+|-- docs
+|   |-- UML
+|   `-- design-mock
+|-- src
+|   |-- assets
+|   |-- features
+|   |   |-- custom-search
+|   |   |   `-- api
+|   |   |-- login
+|   |   |   `-- api
+|   |   |-- navbar
+|   |   |   `-- components
+|   |   `-- search
+|   |       |-- api
+|   |       |   `-- searchApi.js
+|   |       `-- components
+|   |           |-- article
+|   |           |-- feed-list
+|   |           |-- text-gradient
+|   |           `-- text-type
+|   |-- pages
+|   `-- styles
+`-- tests
 ```
 
 [//]: # (## 1.5. Collaborate)
