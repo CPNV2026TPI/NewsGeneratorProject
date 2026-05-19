@@ -1,0 +1,14 @@
+@startuml
+title Déconnexion de l'utilisateur (Frontend)
+autonumber
+
+actor "Utilisateur" as User
+participant "UI" as UI
+participant "Backend" as BE
+database "Base de données" as DB
+
+User -> UI : Clique sur la bouton "Sign out"
+
+UI --> UI : supprime JWT du localStorage
+
+@enduml

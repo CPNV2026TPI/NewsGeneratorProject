@@ -1,0 +1,26 @@
+@startuml
+title Diagramme de séquence - Flux sauvegarde et récupération du dernier filtre appliqué (Frontend)
+autonumber
+
+actor "Utilisateur" as User
+participant "UI" as UI
+participant "Backend" as BE
+database "Base de données" as DB
+
+== Sauvegarde dernier filtre appliqué ==
+User -> UI : Saisie des filtres
+User -> UI : Clique sur "Search"
+
+UI -> BE : POST /lastfilter(last_filter)
+BE -> DB : postUserLastFilter(last_filter)
+DB --> BE : confirmation_sauvegarde
+BE --> UI : confirmation_sauvegarde
+
+== Récupération dernier filtre appliqué ==
+User -> UI : Visite de la page /search en tant que membre
+UI -> BE : GET /lastfilter(user_id)
+BE -> DB : getUserUserLastFilter(user_id)
+DB --> BE : dernier_filtre
+BE --> UI : Mise à jour des filtres
+
+@enduml

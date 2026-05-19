@@ -1,0 +1,54 @@
+@startuml
+title Diagramme Use Case - NewsGenerator
+left to right direction
+
+actor "Invité" as g
+actor "Membre" as m #LightBlue
+actor "Admin" as a
+
+rectangle "NewsGenerator System" {
+    package "Features Invité" {
+        usecase "Enregistrement" as register
+        usecase "Connexion" as login
+        usecase "Accès page "Recherche" (lecture seulement)" as accessSearch
+    }
+
+    package "Features Membre" {
+        usecase "Recherche nouvelles" as searchNews
+        usecase "Configuration filtres" as configFilters
+        usecase "Sauvegarde filtres" as saveFilters
+        usecase "Voir historique filtres" as viewFiltersHistory
+        usecase "Enregistrement automatique dernier filtre" as autoSaveLastFilter #LightBlue
+        usecase "Voir historique nouvelles" as newsHistory
+        usecase "Modification sources personnalisées" as manageSources
+        usecase "Abonnement newsletter" as subNewsletter
+    }
+
+    package "Features Admin" {
+        usecase "View member information" as watchMember
+        usecase "Monitor member activity" as monitorMember
+    }
+}
+
+'guest
+g --> register
+g --> login
+g --> accessSearch
+
+'member
+m --|> g
+m --> searchNews
+m --> configFilters
+m --> saveFilters
+m --> viewFiltersHistory
+m --> autoSaveLastFilter
+m --> newsHistory
+m --> manageSources
+m --> subNewsletter
+
+'admin
+a --|> m
+a --> watchMember
+a --> monitorMember
+
+@enduml

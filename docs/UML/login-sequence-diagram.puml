@@ -1,5 +1,5 @@
 @startuml
-title Flux recherche et historique des recherches (Frontend)
+title Connection de l'utilisateur (Frontend)
 autonumber
 
 actor "Utilisateur" as User
@@ -7,11 +7,10 @@ participant "UI" as UI
 participant "Backend" as BE
 database "Base de données" as DB
 
-== Connexion utilisateur ==
 User -> UI : Saisie nom utilisateur + mot de passe
 User -> UI : Clique sur "Login"
 
-UI -> BE : authUser(user_cred)
+UI -> BE : POST /login (user_cred)
 BE -> DB : authUser(user_cred)
 DB --> BE : user_data
 BE --> UI : JWT
@@ -19,9 +18,5 @@ BE --> UI : JWT
 UI --> UI : enregistre JWT dans localStorage
 UI --> User : redirige /fetch
 
-== Déconnexion utilisateur ==
-User -> UI : Clique sur la bouton "Sign out"
-
-UI --> UI : supprime JWT du localStorage
 
 @enduml
