@@ -241,19 +241,15 @@ export const SearchPage = () => {
             <Container className="app-header">
                 <Content width={'75vw'} marginTop={50}>
                     <VStack width={'100%'} alignItems={'center'} gap={20}>
-                        <VStack width={'100%'} marginBottom={50}>
-                            <TextPressure
-                                text="News Generator"
-                                flex
-                                alpha={false}
-                                stroke={true}
-                                width={true}
-                                weight={true}
-                                italic={true}
-                                textColor="#F2E3D5"
-                                strokeColor="#BFA584"
-                                minFontSize={36}
-                            />
+                        <VStack width={'100%'} height={'30vh'} marginBottom={50} alignItems={'center'}>
+                            <GradientText
+                                colors={["#e18e36", "#eabe92", "#ef8717"]}
+                                animationSpeed={8}
+                                showBorder={false}
+                                className="text-6xl font-extrabold"
+                            >
+                                News Generator
+                            </GradientText>
                             <TextType
                                 text={["It is a personalizable news generator.", "It must be able to read the news, understand it, and summarize the news it has read, taking into account user parameters such as keywords, desired/undesired topics, language and timeframe of the search."]}
                                 className="text-xl font-sans-serif italic"
