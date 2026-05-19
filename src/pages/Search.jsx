@@ -62,9 +62,9 @@ const model = SchemaModel({
     language: StringType()
         .minLength(1, 'Please select a language.')
         .isRequired('A language required.'),
-    timeframe: ArrayType()
-        .minLength(1, 'Please select a timeframe.')
-        .isRequired('A timeframe required.')
+    // timeframe: ArrayType()
+    //     .minLength(1, 'Please select a timeframe.')
+    //     .isRequired('A timeframe required.')
 });
 
 export const SearchPage = () => {
@@ -112,9 +112,6 @@ export const SearchPage = () => {
             category: formValue.category,
             keywords: [formValue.keyword]
         }, token);
-
-console.log('App: allNews: ');
-console.log(allNews);
 
         // print error message
         if (allNews && allNews.error && allNews.error.includes('Forbidden, invalid or expired')) {
@@ -170,6 +167,12 @@ console.log(allNews);
             }
         } catch (e) {
             console.error("Failed to fetch searches", e);
+            // error message
+            if (!formValue.id) {
+                toaster.push(<Message type="error">Error while creating {formValue.title}...</Message>);
+            } else {
+                toaster.push(<Message type="error">Error while modifying {formValue.title}...</Message>);
+            }
         }
     }
 
@@ -187,6 +190,10 @@ console.log(allNews);
         try {
             const data = await CustomSearchApi.deleteUserCustomSearch({id: tag.value.id, userId: user.id}, token);
 
+            if (!data) {
+                toaster.push(<Message type="error">Error deleting {tag.value.title}...</Message>);
+                return
+            }
             const nextTags = customSearchItems.filter(item => item !== tag);
 
             toaster.push(<Message type="success">{tag.value.title} deleted successfully !</Message>);
