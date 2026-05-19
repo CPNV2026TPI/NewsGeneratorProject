@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: FeedList.jsx
+//  Description: FeedList component used in Search Page
+//
+
 import {List, Box, Table, Loader, VStack, toaster, Message, Text, Button, SelectPicker, HStack, Tag, } from "rsuite";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {FaMagic} from "react-icons/fa";

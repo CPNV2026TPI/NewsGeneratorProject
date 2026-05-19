@@ -2,7 +2,7 @@
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
 //  File: newsApi.js
-//  Description: Fetch news api for news feed component
+//  Description: call Rest API endpoint for news
 //
 
 const API_URL = import.meta.env.VITE_API_URL;

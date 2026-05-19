@@ -1,4 +1,9 @@
-// Component ported from https://codepen.io/JuanFuentes/full/rgXKGQ
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: TextPressure.jsx
+//  Description: TextPressure component used in Search Page, from React Bits
+//
 
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 

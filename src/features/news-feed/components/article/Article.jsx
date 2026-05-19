@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: Article.jsx
+//  Description: Article component used in Search Page
+//
+
 import {memo, useState} from "react";
 import {Button, Card, Checkbox, Heading, Tag, TagGroup, Text, VStack} from "rsuite";
 import { FaExternalLinkAlt } from "react-icons/fa";

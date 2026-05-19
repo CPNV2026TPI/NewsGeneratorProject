@@ -2,7 +2,7 @@
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
 //  File: Fetch.jsx
-//  Description: 
+//  Description: Fetch
 //
 
 import {forwardRef, useRef, useState} from "react";

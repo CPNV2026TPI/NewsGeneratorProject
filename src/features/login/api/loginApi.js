@@ -2,7 +2,7 @@
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
 //  File: loginApi.js
-//  Description: LoginApi API
+//  Description: Call Rest API for login
 //
 
 const API_URL = import.meta.env.VITE_API_URL;

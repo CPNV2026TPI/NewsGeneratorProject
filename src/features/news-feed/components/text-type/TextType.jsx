@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: TextType.jsx
+//  Description: TextType component used in Search Page, from React Bits
+//
+
 'use client';
 
 import {useEffect, useRef, useState, createElement, useMemo, useCallback} from 'react';
