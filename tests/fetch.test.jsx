@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: fetch.text.jsx
+//  Description: Frontend test class for fetch feature
+//
+
 import '@testing-library/jest-dom';
 import { it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';

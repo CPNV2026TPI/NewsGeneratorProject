@@ -2,7 +2,7 @@
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
 //  File: Search.jsx
-//  Description: 
+//  Description: Search page for frontend
 //
 
 import {forwardRef, useEffect, useRef, useState} from "react";

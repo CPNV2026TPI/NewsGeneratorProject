@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: App.jsx
+//  Description: Entry point of frontend
+//
+
 import 'rsuite/dist/rsuite.min.css';
 import 'rsuite/TagPicker/styles/index.css';
 import './App.css'

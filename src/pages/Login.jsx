@@ -2,7 +2,7 @@
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
 //  File: Login.jsx
-//  Description: LoginApi Page for frontend
+//  Description: Login Page for frontend
 //
 
 import {useRef, useState} from "react";

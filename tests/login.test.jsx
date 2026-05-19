@@ -1,3 +1,10 @@
+//
+//  Author: Fabian Rostello
+//  Date: 19.05.2026
+//  File: login.text.jsx
+//  Description: Frontend test class for login feature
+//
+
 import '@testing-library/jest-dom';
 import { it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
