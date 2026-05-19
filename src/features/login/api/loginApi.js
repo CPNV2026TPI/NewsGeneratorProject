@@ -1,7 +1,7 @@
 //
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
-//  File: newsApi.js
+//  File: loginApi.js
 //  Description: LoginApi API
 //
 

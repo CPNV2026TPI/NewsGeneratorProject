@@ -1,7 +1,7 @@
 //
 //  Author: Fabian Rostello
 //  Date: 03.04.2026
-//  File: Fetch.jsx
+//  File: Login.jsx
 //  Description: LoginApi Page for frontend
 //
 
@@ -58,7 +58,7 @@ export const LoginPage = () => {
         // if successfully retrieved user data
         if (user.token) {
             localStorage.setItem("JWT", user.token);
-            navigate('/fetch')
+            navigate('/search')
         }
     };
 
