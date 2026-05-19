@@ -1,0 +1,22 @@
+@startuml
+title Création et modification de recherche personnalisée (Frontend)
+autonumber
+
+actor "Utilisateur" as User
+participant "UI" as UI
+participant "Backend" as BE
+database "Base de données" as DB
+
+User -> UI : Saisie des filtres
+User -> UI : Clique sur "Save search"
+User -> UI : Ajout d'un titre pour la recherche personnalisée
+User -> UI : Appuie sur le bouton "Save"
+
+UI -> BE : /POST customsearch(custom_search)
+BE -> DB : postUserCustomSearch(custom_search)
+DB --> BE : confirmation_sauvegarde
+BE --> UI : confirmation_sauvegarde
+UI --> User : confirmation_sauvegarde (Alerte)
+
+
+@enduml

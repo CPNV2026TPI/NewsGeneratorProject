@@ -1,0 +1,19 @@
+@startuml
+title Suppression de recherche personnalisée (Frontend)
+autonumber
+
+actor "Utilisateur" as User
+participant "UI" as UI
+participant "Backend" as BE
+database "Base de données" as DB
+
+
+User -> UI : Clique sur le bouton supprimer sur le tag
+UI -> BE : DELETE /customsearch (search_id)
+BE -> DB : deleteUserCustomSearch(id, user_id)
+DB --> BE : confirmation_suppression
+BE --> UI : Mise à jour liste locale
+UI --> User : confirmation_suppression (Alerte)
+
+
+@enduml

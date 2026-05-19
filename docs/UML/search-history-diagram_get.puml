@@ -1,0 +1,19 @@
+@startuml
+title Récupération de recherche personnalisée (Frontend)
+autonumber
+
+actor "Utilisateur" as User
+participant "UI" as UI
+participant "Backend" as BE
+database "Base de données" as DB
+
+
+User -> UI : Visite de la page /search en tant que membre
+UI -> BE : GET /customsearch?userId=id
+BE -> DB : getUserCustomSearch(user_id)
+DB --> BE : resultat_recherche
+BE --> UI : Mise à jour du liste déroulante
+User -> UI : Sélectionne une recherche personnalisée
+UI --> UI : Mise à jour des filtres
+
+@enduml
