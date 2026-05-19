@@ -5,8 +5,8 @@ import {forwardRef} from "react";
 import {useNavigate} from "react-router-dom";
 
 const Brand = () => (
-    <Navbar.Brand href="#">
-        <IoLogoReact size={26}/> Brand
+    <Navbar.Brand href="/search" color={'orange'}>
+        {/*<IoLogoReact size={26}/>*/}NewsGenerator
     </Navbar.Brand>
 );
 
@@ -73,13 +73,13 @@ const RenderSpeaker = forwardRef(({onClose, left, top, className, user, onLogout
                     )}
                 </Dropdown.Item>
                 <Dropdown.Item divider/>
-                {user && (
-                    <>
-                        <Dropdown.Item>Profile & account</Dropdown.Item>
-                        <Dropdown.Item divider/>
-                    </>
-                )}
-                <Dropdown.Item>Settings</Dropdown.Item>
+                {/*{user && (*/}
+                {/*    <>*/}
+                {/*        <Dropdown.Item>Profile & account</Dropdown.Item>*/}
+                {/*        <Dropdown.Item divider/>*/}
+                {/*    </>*/}
+                {/*)}*/}
+                {/*<Dropdown.Item>Settings</Dropdown.Item>*/}
                 <Dropdown.Item onClick={handleLogoutClick}>{user ? "Sign out" : "Sign in"}</Dropdown.Item>
             </Dropdown.Menu>
         </Popover>
